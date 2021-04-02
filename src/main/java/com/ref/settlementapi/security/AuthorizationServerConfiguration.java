@@ -1,6 +1,7 @@
 package com.ref.settlementapi.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,15 +32,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		security.allowFormAuthenticationForClients();
 	}
 
+	@Value(value = "secret-key")
+	private String secretKey;
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-				.withClient("rokin-client")
-				.secret(passwordEncoder.encode("secret"))
+				.withClient("refugee-board-client")
+				.secret(passwordEncoder.encode(secretKey))
 				.authorizedGrantTypes("password", "client_credentials", "refresh_token")
 				.scopes("all")
 				.accessTokenValiditySeconds(3600)
-				.refreshTokenValiditySeconds(86400);
+				.refreshTokenValiditySeconds(7200);
 	}
 
 	@Override
