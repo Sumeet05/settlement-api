@@ -32,8 +32,11 @@ public class SettlementApiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (this.userRepository.findByUsername("admin") == null) {
-            User user = new User("admin", "test", "admin@mail.com", new Date(), "admin", passwordEncoder.encode("hzx9uLuNmQ"), Arrays.asList("ADMIN"));
+        System.out.println("starting command line runner");
+        System.out.println(this.userRepository.findByUsername("admin"));
+        if (!this.userRepository.findByUsername("admin").isPresent()) {
+            System.out.println("creating admin user");
+            User user = new User("admin", "test", "admin@mail.com", new Date(), "admin", passwordEncoder.encode("admin"), Arrays.asList("ADMIN"));
 
             this.userRepository.save(user);
         }
