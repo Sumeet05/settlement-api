@@ -32,7 +32,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		security.allowFormAuthenticationForClients();
 	}
 
-	@Value(value = "secret-key")
+	@Value("${secret-key}")
 	private String secretKey;
 
 	@Override
